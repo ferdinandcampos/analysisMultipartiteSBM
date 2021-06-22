@@ -1,0 +1,15 @@
+Package: analysisMultipartiteSBM
+Type: Package
+Title: Analysis Tools for MultipartiteSBM
+Version: 0.1.0
+Author: Ferdinand Campos
+Maintainer: The package maintainer <ferdinand.camposf@ens-paris-saclay.fr>
+Description: Develop analysis tools for MultipartiteSBM
+    Characterization of blocks emerged from MultipartiteSBM.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: car
+RoxygenNote: 6.1.0
+Suggests: knitr, rmarkdown, testthat
+VignetteBuilder: knitr
