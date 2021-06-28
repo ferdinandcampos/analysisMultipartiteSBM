@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Ferdinand Campos
 Maintainer: The package maintainer <ferdinand.camposf@ens-paris-saclay.fr>
 Description: Develop analysis tools for MultipartiteSBM
-    Characterization of blocks emerged from MultipartiteSBM.
+    Characterization of blocks emerged from MultipartiteSBM !
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
