@@ -3,10 +3,10 @@ Type: Package
 Title: Analysis Tools for MultipartiteSBM
 Version: 0.1.0
 Author: Ferdinand Campos
-Maintainer: The package maintainer <ferdinand.camposf@ens-paris-saclay.fr>
+Maintainer: Ferdinand Campos <ferdinand.camposf@ens-paris-saclay.fr>
 Description: Develop analysis tools for MultipartiteSBM
     Characterization of blocks emerged from MultipartiteSBM !
-License: What license is it under?
+License: 
 Encoding: UTF-8
 LazyData: true
 Imports: car
