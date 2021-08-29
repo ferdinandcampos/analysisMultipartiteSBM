@@ -9,7 +9,7 @@ Description: Develop analysis tools for MultipartiteSBM
 License: 
 Encoding: UTF-8
 LazyData: true
-Imports: car
+Imports: car, sbm, stats, rlist, knitr, stringr, igraph, RColorBrewer, Matrix, ggplot2, latex2exp, factoextra, scatterplot3d, openxlsx    
 RoxygenNote: 6.1.0
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
