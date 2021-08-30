@@ -136,7 +136,8 @@ that emerge from MBM parameters.</p>
 
     <pre class="usage"><span class='fu'>plotAnalysisTripartiteSBM</span><span class='op'>(</span>
   <span class='va'>analyse</span>,
-  Indices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>analyse</span><span class='op'>$</span><span class='va'>network_id</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  Indices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>analyse</span><span class='op'>$</span><span class='va'>network_id</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+  new.window <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -152,6 +153,10 @@ and relative sizes of blocks <code>cluster_pi</code></p></td>
       <th>Indices</th>
       <td><p>optional vector of networks' indexes to be plotted</p></td>
     </tr>
+    <tr>
+      <th>new.window</th>
+      <td><p>plots in a new window if TRUE</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -161,7 +166,7 @@ and relative sizes of blocks <code>cluster_pi</code></p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>analyseEcologicalNetworksDataset</span><span class='op'>)</span>
 <span class='fu'>plotAnalysisTripartiteSBM</span><span class='op'>(</span><span class='va'>analyse</span><span class='op'>)</span>
-</div><div class='img'><img src='plotAnalysisTripartiteSBM-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in plotAnalysisTripartiteSBM(analyse): objet 'analyse' introuvable</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -121,7 +121,7 @@ str(analyseENetDataset)
 Les données issues des réseaux représentent $N=53$ blocs $k^\prime$ de plantes à classifier, en interactions avec $21$ blocs d'herbivores et $28$ blocs de mutualistes. 
 
 ```{r plot block analysis, eval=TRUE, fig.height=5, fig.width=8.5}
-plotAnalysisTripartiteSBM(analyseENetDataset)
+plotAnalysisTripartiteSBM(analyseENetDataset,new.window=FALSE)
 ```
 
 ### Preparation of caracterisation
@@ -144,8 +144,8 @@ caracterisation<-caracTripartiteSBM(analysePlants,metrics,nb_clusters)
 caracterisation$centers
 ```
 
-```{r plot block caracterisation, eval=FALSE}
-plotCaracTripartiteSBM(caracterisation,plotIndicesblocs)
+```{r plot block caracterisation, eval=TRUE}
+plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,new.window=FALSE)
 ```
 
 ## Additionnal analyses
@@ -165,7 +165,18 @@ plotDegInversion(analyseENetDataset,Indices_plantspollination)
 
 ```
 
-### Second application, insects only
+### Additional materials
+One can plot the individual blocks' distributions in clusters, per network.
+```{r plot block caracterisation distrib, eval=TRUE}
+plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,plot.type="distrib.networks",new.window=FALSE)
+```
+The Multidimensional Scaling (MDS) can also be plotted.
+```{r plot block caracterisation mds, eval=TRUE}
+plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,plot.type="mds",new.window=FALSE)
+```
+
+
+### Second application : caracterisation with insects only
 On peut mener une analyse analogue en ne retenant que des insectes parmi les herbivores, en ajoutant ou changeant les assertions suivantes :
 ```{r study only insect, eval=FALSE}
 #For our analysis 2 (insects only)

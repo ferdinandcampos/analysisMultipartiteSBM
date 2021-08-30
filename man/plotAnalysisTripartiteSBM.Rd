@@ -7,7 +7,8 @@ that emerge from MBM parameters.}
 \usage{
 plotAnalysisTripartiteSBM(
   analyse,
-  Indices = as.numeric(names(table(analyse$network_id)))
+  Indices = as.numeric(names(table(analyse$network_id))),
+  new.window = TRUE
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ including at least numbers of blocks \code{nb_herbi_clust}, \code{nb_plants_clus
 and relative sizes of blocks \code{cluster_pi}}
 
 \item{Indices}{optional vector of networks' indexes to be plotted}
+
+\item{new.window}{plots in a new window if TRUE}
 }
 \value{
 a new figure

@@ -7,13 +7,16 @@
 plotDegInversion(
   analyse,
   Indices = as.numeric(names(table(analyse$network_id))),
-  seuilPRb_hidecluster = 0
+  seuilPRb_hidecluster = 0,
+  new.window = TRUE
 )
 }
 \arguments{
-\item{x}{à faire}
+\item{analyse}{à faire}
 
-\item{y}{à faire}
+\item{Indices}{à faire#'}
+
+\item{new.window}{plots in a new window if TRUE}
 }
 \value{
 à faire

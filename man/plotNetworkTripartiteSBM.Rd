@@ -11,13 +11,26 @@ plotNetworkTripartiteSBM(
   plot_graph_no_partites = TRUE,
   show_titles = TRUE,
   nodes_size = 3,
-  nodes_pie = TRUE
+  nodes_pie = TRUE,
+  new.window = TRUE
 )
 }
 \arguments{
-\item{x}{à faire}
+\item{myMSBM}{à faire}
 
-\item{y}{à faire}
+\item{seuil_hesitation}{à faire}
+
+\item{plot_types}{à faire}
+
+\item{plot_graph_no_partites}{à faire}
+
+\item{show_titles}{à faire}
+
+\item{nodes_size}{à faire}
+
+\item{nodes_pie}{à faire}
+
+\item{new.window}{plots in a new window if TRUE}
 }
 \value{
 à faire

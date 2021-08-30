@@ -8,13 +8,20 @@ plotFunctionalCartography(
   analyse,
   plotdim = "2d",
   highlight.3d = FALSE,
-  Indices = as.numeric(names(table(analyse$network_id)))
+  Indices = as.numeric(names(table(analyse$network_id))),
+  new.window = TRUE
 )
 }
 \arguments{
-\item{x}{à faire}
+\item{analyse}{à faire}
 
-\item{y}{à faire}
+\item{plotdim}{à faire}
+
+\item{highlight.3d}{à faire}
+
+\item{Indices}{à faire}
+
+\item{new.window}{plots in a new window if TRUE}
 }
 \value{
 à faire
