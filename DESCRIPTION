@@ -6,11 +6,28 @@ Author: Ferdinand Campos
 Maintainer: Ferdinand Campos <ferdinand.camposf@ens-paris-saclay.fr>
 Description: Develop analysis tools for MultipartiteSBM
     Characterization of blocks emerged from MultipartiteSBM !
-License: 
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: car, sbm, stats, rlist, knitr, stringr, igraph, RColorBrewer, Matrix, ggplot2, latex2exp, factoextra, scatterplot3d, openxlsx    
-RoxygenNote: 6.1.0
+@import: 
+Imports: 
+      sbm,
+      car, 
+      carData,
+      stats, 
+      rlist, 
+      knitr, 
+      stringr, 
+      igraph, 
+      RColorBrewer, 
+      Matrix, 
+      ggplot2, 
+      latex2exp, 
+      factoextra, 
+      scatterplot3d, 
+      openxlsx    
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 URL: https://ferdinandcampos.github.io/analysisMultipartiteSBM/, https://github.com/ferdinandcampos/analysisMultipartiteSBM

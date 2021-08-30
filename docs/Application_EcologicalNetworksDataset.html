@@ -204,7 +204,7 @@ $$</span> et puis <span class="math inline">∀(<em>q</em>, <em>q</em><sup>′
 <a href="#blocks-analysis" class="anchor"></a>Blocks analysis</h3>
 <p>Les données issues des réseaux représentent <span class="math inline"><em>N</em> = 53</span> blocs <span class="math inline"><em>k</em><sup>′</sup></span> de plantes à classifier, en interactions avec <span class="math inline">21</span> blocs d’herbivores et <span class="math inline">28</span> blocs de mutualistes.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">plotAnalysisTripartiteSBM</span><span class="op">(</span><span class="va">analyse</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plotAnalysisTripartiteSBM.html">plotAnalysisTripartiteSBM</a></span><span class="op">(</span><span class="va">analyse</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="preparation-of-caracterisation" class="section level3">
 <h3 class="hasAnchor">
@@ -232,11 +232,11 @@ $$</span> et puis <span class="math inline">∀(<em>q</em>, <em>q</em><sup>′
 <h3 class="hasAnchor">
 <a href="#clustering-analysis-to-caracterise-blocks-of-plants" class="anchor"></a>Clustering analysis to caracterise blocks of plants</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">caracterisation</span><span class="op">&lt;-</span><span class="fu">caracTripartiteSBM</span><span class="op">(</span><span class="va">analysePlants</span>,<span class="va">metrics</span>,order_clusters<span class="op">=</span><span class="va">order_clusters</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">caracterisation</span><span class="op">&lt;-</span><span class="fu"><a href="reference/caracTripartiteSBM.html">caracTripartiteSBM</a></span><span class="op">(</span><span class="va">analysePlants</span>,<span class="va">metrics</span>,order_clusters<span class="op">=</span><span class="va">order_clusters</span><span class="op">)</span>
 
 <span class="va">caracterisation</span><span class="op">$</span><span class="va">centers</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">plotCaracTripartiteSBM</span><span class="op">(</span><span class="va">caracterisation</span>,<span class="va">plotIndicesblocs</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plotCaracTripartiteSBM.html">plotCaracTripartiteSBM</a></span><span class="op">(</span><span class="va">caracterisation</span>,<span class="va">plotIndicesblocs</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="additionnal-analyses" class="section level2">
@@ -253,7 +253,7 @@ $$</span> et puis <span class="math inline">∀(<em>q</em>, <em>q</em><sup>′
 <a href="#appendix-1--functional-cartography" class="anchor"></a>Appendix 1 : functional cartography</h3>
 <p>Une façon d’illustrer les connectances partielles et taux de participation réside dans l’outil de la cartographie fonctionnelle (<span class="math inline"><em>functional cartography</em></span>) introduite en écologie dans le célèbre @Guimera2005A, qui trace et classe des espèces dans un plan du type <span class="math inline">(<em>taux de participation</em>, <em>degré</em>)</span>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">plotFunctionalCartography</span><span class="op">(</span><span class="va">analyse</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plotFunctionalCartography.html">plotFunctionalCartography</a></span><span class="op">(</span><span class="va">analyse</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="appendix-2-degree-degree-of-neighbors-inversion" class="section level3">
 <h3 class="hasAnchor">
@@ -261,7 +261,7 @@ $$</span> et puis <span class="math inline">∀(<em>q</em>, <em>q</em><sup>′
 <p>Dans les écosystèmes plantes–pollinisateurs, une inversion en moyenne du caractère spécialiste/généraliste entre les espèces et leurs voisins est reportée dans la littérature (@bascompte2003nested, @jordano1987patterns). Ici on propose de retrouver ce signal à l’échelle des blocs en traçant pour les plantes et les pollinisateurs les courbes de connectances partielles <span class="math inline"><em>c̄</em><sub><em>b</em></sub></span> en fonction des connectances partielles moyennes des voisins <span class="math inline"><em>c̄</em><sub><em>b</em></sub><sup>N</sup></span> associées aux blocs des 16 réseaux de type herbivorie–pollinisation à l’étude.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Indices_plantspollination</span><span class="op">&lt;-</span><span class="va">Indices</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">11</span>,<span class="fl">13</span>,<span class="fl">14</span>,<span class="fl">15</span>,<span class="fl">17</span><span class="op">)</span><span class="op">]</span>
-<span class="fu">plotDegInversion</span><span class="op">(</span><span class="va">analyse</span>,<span class="va">Indices_plantspollination</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/plotDegInversion.html">plotDegInversion</a></span><span class="op">(</span><span class="va">analyse</span>,<span class="va">Indices_plantspollination</span><span class="op">)</span></code></pre></div>
 <hr>
 </div>
 </div>

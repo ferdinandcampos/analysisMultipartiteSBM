@@ -1,24 +1,13 @@
-source("toolsFunctions.R")
-source("getMetricsTripartiteSBM.R")
-source("ecologicalNetworksDataset_toolsFunctions.R")
-library(sbm)
-library(knitr)
-library(rlist)
-library(stringr)
-library("openxlsx")
-
-## ---------------------------------------------------------
-####
-# weight
-# guess_K_clusters_type #free (1:10 per default), constrained ou forcedsplit ou forcedsplitsoft
-# #range_clusters_constrained #if constrained, list(c(K_min,K_max)) for each FG
-# must_rename_species
-# rename_short
-# must_normalise_metrics
-# force_run_MSBM #force run even if a file already exists
-# must_save
-####
-
+#' Compute structural analysis on a collection of tripartite networks.
+#' First it calibrates MBM on each network then computes structural metrics.
+#'
+#' @param x à faire
+#' @param y à faire
+#' @return à faire
+#' @examples
+#' à faire
+#'
+#' @export
 
 analysisTripartiteSBM=function(dataset_path,dataset_names,Indices=as.numeric(names(table(analyse$network_id))),
                                weight=FALSE,must_rename_species=TRUE,rename_short=TRUE,
@@ -156,3 +145,24 @@ analysisTripartiteSBM=function(dataset_path,dataset_names,Indices=as.numeric(nam
   }
   return(analyse_reseaux_reels)
 }
+
+# source("toolsFunctions.R")
+# source("getMetricsTripartiteSBM.R")
+# source("ecologicalNetworksDataset_toolsFunctions.R")
+# library(sbm)
+# library(knitr)
+# library(rlist)
+# library(stringr)
+# library("openxlsx")
+
+## ---------------------------------------------------------
+####
+# weight
+# guess_K_clusters_type #free (1:10 per default), constrained ou forcedsplit ou forcedsplitsoft
+# #range_clusters_constrained #if constrained, list(c(K_min,K_max)) for each FG
+# must_rename_species
+# rename_short
+# must_normalise_metrics
+# force_run_MSBM #force run even if a file already exists
+# must_save
+####

@@ -1,25 +1,31 @@
-source("toolsFunctions.R")
-library(knitr)
-library(rlist)
-library(stringr)
-library(rgl)
-library(car)
-library(carData) #apparemment il faut ça aussi
+#' Plot main blocks structural proprieties of a collection of tripartite networks,
+#' that emerge from MBM parameters.
+#'
+#' @param analyse the output data.frame of our analysis,
+#' including at least numbers of blocks \code{nb_herbi_clust}, \code{nb_plants_clust},\code{nb_polli_clust}
+#' and relative sizes of blocks \code{cluster_pi}
+#' @param Indices optional vector of networks' indexes to be plotted
+#' @return a new figure
+#' @examples
+#' data(analyseEcologicalNetworksDataset)
+#' plotAnalysisTripartiteSBM(analyse)
+#'
+#' @export
 
 plotAnalysisTripartiteSBM=function(analyse,
                                    Indices=as.numeric(names(table(analyse$network_id)))){
   ############Histogrammes des nombres de blocks
-  x11(width = 19,height = 12)
+  #x11(width = 19,height = 12)
   par(mfrow=c(2,3),mar = c(4, 5, 1, 0.3))
   distribution_K_all<-analyse[analyse$network_id %in% Indices & analyse$FG=="plants" & analyse$cluster_id==1,c("nb_herbi_clust","nb_plants_clust","nb_polli_clust")]
   rownames(distribution_K_all)<-Indices
-  FG_names<-c("espèces périphériques a","espèces connectrices l","espèces périphériques b")
+  FG_names<-c("esp?ces p?riph?riques a","esp?ces connectrices l","esp?ces p?riph?riques b")
   FG_colors<-c("#E0ECF4","#A1D76A","#E34A33")
   K_max<-max(distribution_K_all)
   for (i in 1:3){
     distribution_K<-table(factor(distribution_K_all[,i],levels=1:K_max))/length(Indices)
     bp<-barplot(distribution_K,col=FG_colors[i],border="white",
-                xlab=variables_to_Latex(names(distribution_K_all)[i]),ylab="Fréquence (%)",main=FG_names[i],
+                xlab=variables_to_Latex(names(distribution_K_all)[i]),ylab="Fr?quence (%)",main=FG_names[i],
                 cex.lab = 1.7, cex.axis = 1.3,cex=1.3)
     text(bp, 0, round(distribution_K, 2), cex=1.3, pos=3,col="black")
   }
@@ -54,12 +60,12 @@ plotAnalysisTripartiteSBM=function(analyse,
       distribution_pi_all[1:length(distribution_pi),c(as.character(index))]<-sort(analyse[analyse$network_id==index & analyse$FG%in%FG,c("cluster_pi")])
     }
     bp<-barplot(distribution_pi_all,beside=FALSE,col=test2,border="white",
-                xlab="Indice du réseau",ylab=variables_to_Latex(pi_clust_names),
+                xlab="Indice du r?seau",ylab=variables_to_Latex(pi_clust_names),
                 axisnames=FALSE,
-                #main=paste("Répartition des tailles de blocks",FG[1],"par réseau"),
+                #main=paste("R?partition des tailles de blocks",FG[1],"par r?seau"),
                 #main=variables_to_Latex("cluster_pi_polli"),
                 #cex.main=2,
                 cex.lab = 1.7, cex.axis = 1.3,cex=1.3)
     text(bp,0, Indices, cex=1.3, pos=3,col="black")
   }
-}  
+}

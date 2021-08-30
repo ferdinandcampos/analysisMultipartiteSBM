@@ -9,6 +9,16 @@ dataset_names_AA <-c('McFayden_ALL_A_HPa', 'McFayden_1_A_HPa', 'McFayden_2_A_HPa
                      'McFayden_4_B_HPa', 'McFayden_5_B_HPa', 'McFayden_6_B_HPa', 'McFayden_7_B_HPa', 'McFayden_8_B_HPa',
                      'McFayden_9_B_HPa', 'McFayden_10_B_HPa', 'Hackett_1_ALL_HPa', 'Hackett_1_WL_HPa')
 
+
+#' tool 1
+#'
+#' @param x à faire
+#' @param y à faire
+#' @return à faire
+#' @examples
+#' à faire
+#'
+#' @export
 find_partites_type=function(dataset_name){
   if (startsWith( dataset_name, 'Ibanez')){
     interactions = list("pollination", "herbivory")

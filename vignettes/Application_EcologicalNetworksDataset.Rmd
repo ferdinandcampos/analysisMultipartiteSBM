@@ -6,7 +6,7 @@ output: rmarkdown::html_vignette
 bibliography: biblio.bib
 link-citations: yes
 vignette: >
-  %\VignetteIndexEntry{Application_EcologicalNetworksDataset}
+  %\VignetteIndexEntry{Structural analysis of ecological tripartite networks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,11 +18,15 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+```
+
 ## Preliminaries
 
 ### Requirements
 The packages required for the analysis are **analysisMultipartiteSBM** and some others for data manipulation or representation:
-```{r setup, message=FALSE, warning=FALSE}
+```{r lib,eval=TRUE,echo = TRUE}
 library(analysisMultipartiteSBM)
 ```
 
@@ -51,7 +55,7 @@ herbivores, l des plantes et b des pollinisateurs) pour 16 d'entre eux et herbiv
 
 ### Preparation of the data
 
-```{r prepare dataset}
+```{r prepare dataset, eval=TRUE}
 dataset_path=""
 dataset_names_MA <- c('Sinohara_1_ALL_PH', 'Sinohara_2_ALL_PH', 'Sinohara_3_ALL_PH', 'Sinohara_4_ALL_PH', 'Sinohara_ALL_A_PH', 
                       'Sinohara_ALL_E_PH', 'Sinohara_ALL_I_PH', 'Sinohara_2_E_PH', 'Sinohara_3_E_PH', 'Sinohara_4_I_PH', 
@@ -127,7 +131,7 @@ plotAnalysisTripartiteSBM(analyse)
 ```
 
 ### Preparation of caracterisation
-```{r prepare caracterisation, eval=FALSE}
+```{r prepare caracterisation, eval=TRUE}
 FG="plants"
 if (!study_insectes_only){#For our analysis 1
                           analysePlants<-analyse[analyse$FG==FG,]
