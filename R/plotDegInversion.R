@@ -1,15 +1,17 @@
 #' Plot deg-deg inversion
 #'
-#' @param x à faire
-#' @param y à faire
+#' @param analyse à faire
+#' @param Indices à faire#'
+#' @param new.window plots in a new window if TRUE
 #' @return à faire
 #' @examples
 #' à faire
 #'
 #' @export
 plotDegInversion=function(analyse,
-                          Indices=as.numeric(names(table(analyse$network_id))),seuilPRb_hidecluster=0){
-  x11(width = 18,height = 9)
+                          Indices=as.numeric(names(table(analyse$network_id))),seuilPRb_hidecluster=0,
+                          new.window=TRUE){
+  if(new.window){x11(width = 18,height = 9)}
   par(mfrow=c(1,2),mar = c(4, 4.3, 1, 1))
   taille_lab = 1.3
   taille_axes = 1

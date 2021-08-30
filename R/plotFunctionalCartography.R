@@ -1,14 +1,18 @@
 #' Plot FC
 #'
-#' @param x à faire
-#' @param y à faire
+#' @param analyse à faire
+#' @param plotdim à faire
+#' @param highlight.3d à faire
+#' @param Indices à faire
+#' @param new.window plots in a new window if TRUE
 #' @return à faire
 #' @examples
 #' à faire
 #' @import ggplot2
 #' @export
 plotFunctionalCartography=function(analyse,
-                                   plotdim="2d",highlight.3d=FALSE,Indices=as.numeric(names(table(analyse$network_id)))){
+                                   plotdim="2d",highlight.3d=FALSE,Indices=as.numeric(names(table(analyse$network_id))),
+                                   new.window=TRUE){
   ############Functional Cartography 2d advanced : c_inter1,2 et PR en couleur
   scatter_type="p"
   metrique_x<-"c_inter1"
@@ -42,7 +46,7 @@ plotFunctionalCartography=function(analyse,
   #pch_reseaux<-pch_admissibles[data_plants[data_plants$network_id %in% Indices, "network_id"]]
   pch_reseaux<-17
 
-  x11(width = 11,height = 9)
+  if(new.window){x11(width = 11,height = 9)}
   if(plotdim=="2d"){
     taille_blocks_markers<-1.6*exp(data_plants[["cluster_pi"]])
     lines_treshold1<-0

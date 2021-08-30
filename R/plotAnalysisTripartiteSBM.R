@@ -5,6 +5,7 @@
 #' including at least numbers of blocks \code{nb_herbi_clust}, \code{nb_plants_clust},\code{nb_polli_clust}
 #' and relative sizes of blocks \code{cluster_pi}
 #' @param Indices optional vector of networks' indexes to be plotted
+#' @param new.window plots in a new window if TRUE
 #' @return a new figure
 #' @examples
 #' data(analyseEcologicalNetworksDataset)
@@ -13,9 +14,10 @@
 #' @export
 
 plotAnalysisTripartiteSBM=function(analyse,
-                                   Indices=as.numeric(names(table(analyse$network_id)))){
+                                   Indices=as.numeric(names(table(analyse$network_id))),
+                                   new.window=TRUE){
   ############Histogrammes des nombres de blocks
-  x11(width = 19,height = 12)
+  if(new.window){x11(width = 19,height = 12)}
   par(mfrow=c(2,3),mar = c(4, 5, 1, 0.3))
   distribution_K_all<-analyse[analyse$network_id %in% Indices & analyse$FG=="plants" & analyse$cluster_id==1,c("nb_herbi_clust","nb_plants_clust","nb_polli_clust")]
   rownames(distribution_K_all)<-Indices

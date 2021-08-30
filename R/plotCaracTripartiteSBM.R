@@ -1,14 +1,17 @@
 #' Plot carac
 #'
-#' @param x à faire
-#' @param y à faire
+#' @param caracterisation à faire
+#' @param plot.type type du plot entre le principal, "main", ou les deux annexes "distrib.networks" et "mds"
+#' @param plotIndicesblocs à faire
+#' @param new.window plots in a new window if TRUE
 #' @return à faire
 #' @examples
 #' à faire
 #'
 #' @export
-plotCaracTripartiteSBM=function(caracterisation,
-                                plotIndicesblocs=1:nrow(caracterisation$data$analysePlants)){
+plotCaracTripartiteSBM=function(caracterisation, plot.type="main",
+                                plotIndicesblocs=1:nrow(caracterisation$data$analysePlants),
+                                new.window=TRUE){
 
   km_centers<-caracterisation$centers
   km_clusters<-caracterisation$memberships
@@ -51,107 +54,106 @@ plotCaracTripartiteSBM=function(caracterisation,
 
 
   ##################################MAIN PLOT
+  if(plot.type=="main"){
+    if(new.window){x11()}
+    par(mfrow=c(2,2),mar = c(3.8, 4.3, 0.3, 0.3))
+    taille_lab = 1.3
+    taille_axes = 1
+    taille_axesmetriques = 1.5
+    taille_points = 3
+    taille_pointstext = 1
+    taille_legende = 1.2
+    taille_soustitres = 1.2
 
-  x11()
-  par(mfrow=c(2,2),mar = c(3.8, 4.3, 0.3, 0.3))
-  taille_lab = 1.3
-  taille_axes = 1
-  taille_axesmetriques = 1.5
-  taille_points = 3
-  taille_pointstext = 1
-  taille_legende = 1.2
-  taille_soustitres = 1.2
+    ###PCA
+    for (metriques_xy in list(c("PC1","PC2"),c("PC2","PC3"))){
+      metrique_x<-metriques_xy[1]
+      metrique_y<-metriques_xy[2]
 
-  ###PCA
-  for (metriques_xy in list(c("PC1","PC2"),c("PC2","PC3"))){
-    metrique_x<-metriques_xy[1]
-    metrique_y<-metriques_xy[2]
+      x_lim<-1*range(res.pca$x[,metrique_x],na.rm=TRUE)
+      y_lim<-1*range(res.pca$x[,metrique_y],na.rm=TRUE)
+      scalefactor<-0.95*min(abs(c(x_lim,y_lim)))/max(abs(res.pca$rotation[,c(metrique_x,metrique_y)]))
+      x_lim<-c(-max(abs(x_lim)),max(abs(x_lim)))
+      y_lim<-c(-max(abs(y_lim)),max(abs(y_lim)))
+      # x_lim<-range(res.pca$x[,metrique_x],na.rm=TRUE)
+      # y_lim<-range(res.pca$x[,metrique_y],na.rm=TRUE)
+      #Palette k-means
+      if (!study_insectes_only){palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
+      }else{palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
+      palette2<-palette2[-c(5,6)]}
+      values_colors_reseaux<-palette2[km_clusters]
 
-    x_lim<-1*range(res.pca$x[,metrique_x],na.rm=TRUE)
-    y_lim<-1*range(res.pca$x[,metrique_y],na.rm=TRUE)
-    scalefactor<-0.95*min(abs(c(x_lim,y_lim)))/max(abs(res.pca$rotation[,c(metrique_x,metrique_y)]))
-    x_lim<-c(-max(abs(x_lim)),max(abs(x_lim)))
-    y_lim<-c(-max(abs(y_lim)),max(abs(y_lim)))
-    # x_lim<-range(res.pca$x[,metrique_x],na.rm=TRUE)
-    # y_lim<-range(res.pca$x[,metrique_y],na.rm=TRUE)
-    #Palette k-means
-    if (!study_insectes_only){palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
-    }else{palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
-    palette2<-palette2[-c(5,6)]}
-    values_colors_reseaux<-palette2[km_clusters]
+      ###Map with k-means clusters
+      plot(res.pca$x[,metrique_x],res.pca$x[,metrique_y],col=values_colors_reseaux,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_points,
+           xlim=x_lim,ylim=y_lim,xlab=variables_to_Latex(metrique_x),ylab=variables_to_Latex(metrique_y),
+           #main=paste("PCA with",nb_clusters,"kmeans clusters,",weighted_by_pi_text),
+           cex.lab = taille_lab, cex.axis = taille_axes)
+      lines(c(lines_treshold1,lines_treshold1),y_lim+c(-1,1),lwd=1,lty=2,col="gray")
+      lines(x_lim+c(-1,1),c(lines_treshold2,lines_treshold2),lwd=1,lty=2,col="gray")
 
-    ###Map with k-means clusters
-    plot(res.pca$x[,metrique_x],res.pca$x[,metrique_y],col=values_colors_reseaux,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_points,
+      km_centers_normalised<-t(apply(km_centers,1,function(x){x*km_scaling})+km_centering) #weighted k-means unscaling
+      km_centers_normalised<-t(apply(km_centers_normalised,1,function(x){x-res.pca$center})/res.pca$scale) #PCA scaling
+      km_centers_projected<-t(Matrix::solve(res.pca$rotation)%*%t(km_centers_normalised)) #rotating
+      #(km_centers_projected)<-colnames(res.pca$x)#Ne fonctionne
+      #km_centers_projected<-t((Matrix::solve(res.pca$rotation))%*%(apply(km_centers,1,function(x){x-res.pca$center})/res.pca$scale)) #Ne fonctionne pas
+      points(km_centers_projected[,metrique_x],km_centers_projected[,metrique_y],col=palette2[1:nb_clusters],pch=19,cex=1.5)
+      points(km_centers_projected[,metrique_x],km_centers_projected[,metrique_y],col="black",pch=8,cex=1)
+
+      text(res.pca$x[,metrique_x], res.pca$x[,metrique_y]+0,
+           labels=plotIndicesblocs,
+           cex=taille_pointstext,col="white",font=2)
+      legend("topright", legend = paste0("C",1:nb_clusters), col = palette2,text.col=palette2,title.col="black", pch = 17,
+             bty = "n",title="Clusters",cex=taille_legende,y.intersp=0.8,x.intersp=0.4)
+
+      for (i in 1:nrow(res.pca$rotation)){
+        arrows(0, 0, scalefactor*res.pca$rotation[i,metrique_x], scalefactor*res.pca$rotation[i,metrique_y],
+               code=2, lwd=1, length = 0.08)
+        text(1.02*scalefactor*res.pca$rotation[i,metrique_x], 1.02*scalefactor*res.pca$rotation[i,metrique_y]-0.2,
+             labels=variables_to_Latex(rownames(res.pca$rotation)[i]),cex=taille_axesmetriques,col="black")
+      }
+    }
+
+    ###FC Map with k-means clusters
+    metrique_x<-"c_inter1"
+    metrique_y<-"c_inter2"
+    x_lim<-range(analysePlants[[metrique_x]],na.rm=TRUE)
+    y_lim<-range(analysePlants[[metrique_y]],na.rm=TRUE)
+    # x_lim<-c(-0.5,2)
+    # y_lim<-c(-0.5,2)
+
+
+    plot(analysePlants[[metrique_x]],analysePlants[[metrique_y]],col=values_colors_reseaux,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_points,
          xlim=x_lim,ylim=y_lim,xlab=variables_to_Latex(metrique_x),ylab=variables_to_Latex(metrique_y),
-         #main=paste("PCA with",nb_clusters,"kmeans clusters,",weighted_by_pi_text),
+         #main=paste("F. Cart with",nb_clusters,"kmeans clusters,",weighted_by_pi_text),
          cex.lab = taille_lab, cex.axis = taille_axes)
     lines(c(lines_treshold1,lines_treshold1),y_lim+c(-1,1),lwd=1,lty=2,col="gray")
     lines(x_lim+c(-1,1),c(lines_treshold2,lines_treshold2),lwd=1,lty=2,col="gray")
-
-    km_centers_normalised<-t(apply(km_centers,1,function(x){x*km_scaling})+km_centering) #weighted k-means unscaling
-    km_centers_normalised<-t(apply(km_centers_normalised,1,function(x){x-res.pca$center})/res.pca$scale) #PCA scaling
-    km_centers_projected<-t(Matrix::solve(res.pca$rotation)%*%t(km_centers_normalised)) #rotating
-    #(km_centers_projected)<-colnames(res.pca$x)#Ne fonctionne
-    #km_centers_projected<-t((Matrix::solve(res.pca$rotation))%*%(apply(km_centers,1,function(x){x-res.pca$center})/res.pca$scale)) #Ne fonctionne pas
-    points(km_centers_projected[,metrique_x],km_centers_projected[,metrique_y],col=palette2[1:nb_clusters],pch=19,cex=1.5)
-    points(km_centers_projected[,metrique_x],km_centers_projected[,metrique_y],col="black",pch=8,cex=1)
-
-    text(res.pca$x[,metrique_x], res.pca$x[,metrique_y]+0,
+    # points(km_centers[,metrique_x],km_centers[,metrique_y],col=palette2[1:nb_clusters],pch=19,cex=1.5)
+    # points(km_centers[,metrique_x],km_centers[,metrique_y],col="black",pch=8,cex=1)
+    text(analysePlants[[metrique_x]], analysePlants[[metrique_y]],
          labels=plotIndicesblocs,
          cex=taille_pointstext,col="white",font=2)
     legend("topright", legend = paste0("C",1:nb_clusters), col = palette2,text.col=palette2,title.col="black", pch = 17,
            bty = "n",title="Clusters",cex=taille_legende,y.intersp=0.8,x.intersp=0.4)
 
-    for (i in 1:nrow(res.pca$rotation)){
-      arrows(0, 0, scalefactor*res.pca$rotation[i,metrique_x], scalefactor*res.pca$rotation[i,metrique_y],
-             code=2, lwd=1, length = 0.08)
-      text(1.02*scalefactor*res.pca$rotation[i,metrique_x], 1.02*scalefactor*res.pca$rotation[i,metrique_y]-0.2,
-           labels=variables_to_Latex(rownames(res.pca$rotation)[i]),cex=taille_axesmetriques,col="black")
-    }
+    ###FC Map with PR colors
+    plot(analysePlants[[metrique_x]],analysePlants[[metrique_y]],col=values_colors,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_points,
+         xlim=x_lim,ylim=y_lim,xlab=variables_to_Latex(metrique_x),ylab=variables_to_Latex(metrique_y),
+         #main=paste("Functional Cartography"),
+         cex.lab = taille_lab, cex.axis = taille_axes)
+    lines(c(lines_treshold1,lines_treshold1),y_lim+c(-1,1),lwd=1,lty=2,col="gray")
+    lines(x_lim+c(-1,1),c(lines_treshold2,lines_treshold2),lwd=1,lty=2,col="gray")
+    text(analysePlants[[metrique_x]]+0, analysePlants[[metrique_y]]+0,
+         labels=as.character(analysePlants[analysePlants$network_id %in% Indices, "network_id"]),
+         cex=taille_pointstext,col="black",font=2)
+    legend("topright", legend = paste0("[",round(m_values_colors+(1:nb_divisions-1)*(M_values_colors-m_values_colors)/nb_divisions,2),",",round(m_values_colors+(1:nb_divisions)*(M_values_colors-m_values_colors)/nb_divisions,2),"]"),
+           col = palette, pch = 17, bty = "n",title=variables_to_Latex(metrique_color),cex=taille_legende,y.intersp=0.8,x.intersp=0.4,title.adj=0.25)
   }
-
-  ###FC Map with k-means clusters
-  metrique_x<-"c_inter1"
-  metrique_y<-"c_inter2"
-  x_lim<-range(analysePlants[[metrique_x]],na.rm=TRUE)
-  y_lim<-range(analysePlants[[metrique_y]],na.rm=TRUE)
-  # x_lim<-c(-0.5,2)
-  # y_lim<-c(-0.5,2)
-
-
-  plot(analysePlants[[metrique_x]],analysePlants[[metrique_y]],col=values_colors_reseaux,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_points,
-       xlim=x_lim,ylim=y_lim,xlab=variables_to_Latex(metrique_x),ylab=variables_to_Latex(metrique_y),
-       #main=paste("F. Cart with",nb_clusters,"kmeans clusters,",weighted_by_pi_text),
-       cex.lab = taille_lab, cex.axis = taille_axes)
-  lines(c(lines_treshold1,lines_treshold1),y_lim+c(-1,1),lwd=1,lty=2,col="gray")
-  lines(x_lim+c(-1,1),c(lines_treshold2,lines_treshold2),lwd=1,lty=2,col="gray")
-  # points(km_centers[,metrique_x],km_centers[,metrique_y],col=palette2[1:nb_clusters],pch=19,cex=1.5)
-  # points(km_centers[,metrique_x],km_centers[,metrique_y],col="black",pch=8,cex=1)
-  text(analysePlants[[metrique_x]], analysePlants[[metrique_y]],
-       labels=plotIndicesblocs,
-       cex=taille_pointstext,col="white",font=2)
-  legend("topright", legend = paste0("C",1:nb_clusters), col = palette2,text.col=palette2,title.col="black", pch = 17,
-         bty = "n",title="Clusters",cex=taille_legende,y.intersp=0.8,x.intersp=0.4)
-
-  ###FC Map with PR colors
-  plot(analysePlants[[metrique_x]],analysePlants[[metrique_y]],col=values_colors,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_points,
-       xlim=x_lim,ylim=y_lim,xlab=variables_to_Latex(metrique_x),ylab=variables_to_Latex(metrique_y),
-       #main=paste("Functional Cartography"),
-       cex.lab = taille_lab, cex.axis = taille_axes)
-  lines(c(lines_treshold1,lines_treshold1),y_lim+c(-1,1),lwd=1,lty=2,col="gray")
-  lines(x_lim+c(-1,1),c(lines_treshold2,lines_treshold2),lwd=1,lty=2,col="gray")
-  text(analysePlants[[metrique_x]]+0, analysePlants[[metrique_y]]+0,
-       labels=as.character(analysePlants[analysePlants$network_id %in% Indices, "network_id"]),
-       cex=taille_pointstext,col="black",font=2)
-  legend("topright", legend = paste0("[",round(m_values_colors+(1:nb_divisions-1)*(M_values_colors-m_values_colors)/nb_divisions,2),",",round(m_values_colors+(1:nb_divisions)*(M_values_colors-m_values_colors)/nb_divisions,2),"]"),
-         col = palette, pch = 17, bty = "n",title=variables_to_Latex(metrique_color),cex=taille_legende,y.intersp=0.8,x.intersp=0.4,title.adj=0.25)
-
   ###################################FIG ANNEXE
 
   ###Affichage multiple, par r?seaux
-  plot_multiple=TRUE
-  if(plot_multiple){
-    x11(width = 18,height = 9)
+  if(plot.type=="distrib.networks"){
+    if(new.window){x11(width = 18,height = 9)}
     par(mfrow=c(3,6),mar = c(3.8, 4.3, 0.3, 0.3))
     #par(mfrow=c(1,2))
     # plot(analysePlants[[metrique_x]],analysePlants[[metrique_y]],col=values_colors_reseaux,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_blocks_markers,
@@ -177,16 +179,17 @@ plotCaracTripartiteSBM=function(caracterisation,
       legend("topright", legend = paste("Id. =",index), bty = "n",cex=taille_legende,text.font=2)
     }
   }
-
   ###Autre affichage : MDS
-  x11()
-  par(mar = c(3.8, 4.3, 1.5, 1))
-  x <- fit.MDS $points[,1]
-  y <- fit.MDS $points[,2]
-  plot(x, y, xlab=variables_to_Latex("MDS1"), ylab=variables_to_Latex("MDS2"),
-       main="Multidimensional Scaling (MDS)", type="p",col=values_colors_reseaux,pch=17,
-       cex=taille_points,cex.lab = taille_lab, cex.axis = taille_axes)
-  text(x, y, labels = plotIndicesblocs, cex=taille_pointstext,col="white",font=2)
-  legend("topright", legend = paste0("C",1:nb_clusters), col = palette2,text.col=palette2,title.col="black", pch = 17,
-         bty = "n",title="Clusters",cex=taille_legende,y.intersp=0.8,x.intersp=0.4)
+  if (plot.type=="mds"){
+    if(new.window){x11()}
+    par(mar = c(3.8, 4.3, 1.5, 1))
+    x <- fit.MDS $points[,1]
+    y <- fit.MDS $points[,2]
+    plot(x, y, xlab=variables_to_Latex("MDS1"), ylab=variables_to_Latex("MDS2"),
+         main="Multidimensional Scaling (MDS)", type="p",col=values_colors_reseaux,pch=17,
+         cex=taille_points,cex.lab = taille_lab, cex.axis = taille_axes)
+    text(x, y, labels = plotIndicesblocs, cex=taille_pointstext,col="white",font=2)
+    legend("topright", legend = paste0("C",1:nb_clusters), col = palette2,text.col=palette2,title.col="black", pch = 17,
+           bty = "n",title="Clusters",cex=taille_legende,y.intersp=0.8,x.intersp=0.4)
+  }
 }

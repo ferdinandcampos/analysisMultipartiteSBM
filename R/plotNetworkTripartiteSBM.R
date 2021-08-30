@@ -1,7 +1,13 @@
 #' Plot network with blocks
 #'
-#' @param x à faire
-#' @param y à faire
+#' @param myMSBM à faire
+#' @param seuil_hesitation à faire
+#' @param plot_types à faire
+#' @param plot_graph_no_partites à faire
+#' @param show_titles à faire
+#' @param nodes_size à faire
+#' @param nodes_pie à faire
+#' @param new.window plots in a new window if TRUE
 #' @return à faire
 #' @examples
 #' à faire
@@ -9,7 +15,8 @@
 #' @export
 plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
                                   plot_graph_no_partites=TRUE,show_titles=TRUE,
-                                  nodes_size=3,nodes_pie=TRUE){
+                                  nodes_size=3,nodes_pie=TRUE,
+                                  new.window=TRUE){
   Incidence_matrices<-formatSBMtoIncidenceMatrices(myMSBM$networkData)
   partites<-myMSBM$dimLabels
   nb_parties=length(partites)
@@ -109,7 +116,7 @@ plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
 
   if (1 %in% plot_types){
     #Affichage (layout personnalis? en x et y)
-    x11()
+    if(new.window){x11()}
     if (plot_graph_no_partites){
       par(mfrow=c(1,2))
       if (nodes_pie){plot(g, edge.width=E(g)$Freq, edge.arrow.size=0,vertex.size=6,vertex.label.cex=0.8,vertex.label.degree=0,
@@ -130,7 +137,7 @@ plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
 
   if (2 %in% plot_types){
     #Affichage (layout personnalis? en x, auto en y)
-    x11()
+    if(new.window){x11()}
     if (plot_graph_no_partites){
       par(mfrow=c(1,2))
       if (nodes_pie){plot(g, edge.width=E(g)$Freq, edge.arrow.size=0,vertex.size=6,vertex.label.cex=0.8,vertex.label.degree=0,
@@ -153,7 +160,7 @@ plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
 
 
   # if (nodes_pie){
-  #   x11()
+  #   if(new.window){x11()}
   #   plot(g, edge.width=E(g)$Freq, edge.arrow.size=0,vertex.size=6,vertex.label.cex=0.8,vertex.label.degree=0,
   #        vertex.shape="pie",vertex.pie=probMemberships_pie, vertex.pie.color=couleurs_clusters_pie,
   #        vertex.frame.color=couleurs_borders_hesitation,vertex.label.font=font_hesitation,vertex.label.color=couleurs_borders_hesitation,vertex.label.dist=label_dist_hesitation)
