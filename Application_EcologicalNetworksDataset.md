@@ -11,18 +11,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 ## Preliminaries
 
 ### Requirements
 The packages required for the analysis are **analysisMultipartiteSBM** and some others for data manipulation or representation:
-```{r setup, message=FALSE, warning=FALSE}
+
+```r
 library(analysisMultipartiteSBM)
 ```
 
@@ -45,13 +41,15 @@ herbivores, l des plantes et b des pollinisateurs) pour 16 d'entre eux et herbiv
 
 
 
-```{r loading dataset, eval=FALSE}
-#data(ecologicalNetworksDataset)
+
+```r
+data(ecologicalNetworksDataset)
 ```
 
 ### Preparation of the data
 
-```{r prepare dataset}
+
+```r
 dataset_path=""
 dataset_names_MA <- c('Sinohara_1_ALL_PH', 'Sinohara_2_ALL_PH', 'Sinohara_3_ALL_PH', 'Sinohara_4_ALL_PH', 'Sinohara_ALL_A_PH', 
                       'Sinohara_ALL_E_PH', 'Sinohara_ALL_I_PH', 'Sinohara_2_E_PH', 'Sinohara_3_E_PH', 'Sinohara_4_I_PH', 
@@ -64,8 +62,7 @@ Indices=1:17
 study_insectes_only=FALSE
 if (study_insectes_only){dataset_names[16]<-"PocockInsects_OO_OO_PH"
                          Indices<-Indices[-c(11,17)]}
-
-``` 
+```
 
 ### Multipartite Block Model (MBM) 
 Le modèle MBM introduit dans @Barhen2020 étend pour des réseaux multipartites l'approche des modèles à blocs. C'est un modèle de mélange probabiliste qui généralise conjointement le célèbre \textit{Stochastic Block Model (SBM)} sur réseau simple et le \textit{Latent Block Model (LBM)}, son extension aux réseaux bipartites. Il identifie des blocs d'espèces à l'intérieur des groupes d'espèces partageant des propriétés de connectivité similaires au sein de la collection de réseaux dans laquelle elles sont impliquées.
@@ -105,7 +102,8 @@ La quantité $\theta_K=(\alpha,\pi)$, où $\alpha=\left(\alpha_{kk^\prime}^{qq^\
 Pour chaque réseau tripartite individuel, on calibre MBM et puis on s'intéresse aux blocs inférés dans les trois groupes d'espèces (GE).
 On fait le choix des 5 métriques suivantes pour classifier les blocs du groupe des connecteurs $l$, définies pour chaque bloc $k^\prime\in1,\dots,K_l$ d'un groupe de connecteurs $l$ donné : $$\left(\bar{c}_a, \bar{c}_b, \textrm{PR}_b^{sym}, \bar{c}_a^{\textrm{N}}, \bar{c}_b^{\textrm{N}}\right).$$
 
-```{r compute metrics, eval=TRUE}
+
+```r
 #analyse<-analysisTripartiteSBM(dataset_path,dataset_names,Indices,quiet=TRUE)
 
 if (!study_insectes_only){
@@ -113,8 +111,7 @@ if (!study_insectes_only){
 } else{
   data(analyseEcologicalNetworksDataset_insects)
 }
-
-str(analyse)
+#> Warning in data(analyseEcologicalNetworksDataset): data set 'analyseEcologicalNetworksDataset' not found
 ```
 
 ## Caracterisation of the ecological structure
@@ -122,12 +119,14 @@ str(analyse)
 ### Blocks analysis
 Les données issues des réseaux représentent $N=53$ blocs $k^\prime$ de plantes à classifier, en interactions avec $21$ blocs d'herbivores et $28$ blocs de mutualistes. 
 
-```{r plot block analysis, eval=TRUE}
+
+```r
 plotAnalysisTripartiteSBM(analyse)
 ```
 
 ### Preparation of caracterisation
-```{r prepare caracterisation, eval=FALSE}
+
+```r
 FG="plants"
 if (!study_insectes_only){#For our analysis 1
                           analysePlants<-analyse[analyse$FG==FG,]
@@ -150,13 +149,15 @@ if (!study_insectes_only){#For our analysis 1
 
 ### Clustering analysis to caracterise blocks of plants
 
-```{r compute caracterisation, eval=FALSE}
+
+```r
 caracterisation<-caracTripartiteSBM(analysePlants,metrics,order_clusters=order_clusters)
 
 caracterisation$centers
 ```
 
-```{r plot block caracterisation, eval=FALSE}
+
+```r
 plotCaracTripartiteSBM(caracterisation,plotIndicesblocs)
 ```
 
@@ -165,19 +166,22 @@ plotCaracTripartiteSBM(caracterisation,plotIndicesblocs)
 ### Second application, insects only
 
 
-```{r study only insect, eval=FALSE}
+
+```r
 study_insectes_only=TRUE
 ```
 
 ### Appendix 1 : functional cartography
 Une façon d'illustrer les connectances partielles et taux de participation réside dans l'outil de la cartographie fonctionnelle ($\textit{functional cartography}$) introduite en écologie dans le célèbre @Guimera2005A, qui trace et classe des espèces dans un plan du type $(\textit{taux de participation}, \textit{degré})$.
-```{r plot functional cartography, eval=FALSE}
+
+```r
 plotFunctionalCartography(analyse)
 ```
 
 ### Appendix 2 :degree-degree of neighbors inversion
 Dans les écosystèmes plantes--pollinisateurs, une inversion en moyenne du caractère spécialiste/généraliste entre les espèces et leurs voisins est reportée dans la littérature (@bascompte2003nested, @jordano1987patterns). Ici on propose de retrouver ce signal à l'échelle des blocs en traçant pour les plantes  et les pollinisateurs les courbes de connectances partielles $\bar c_b$ en fonction des connectances partielles moyennes des voisins $\bar c_b^{\textrm{N}}$ associées aux blocs des 16 réseaux de type herbivorie--pollinisation à l'étude.
-```{r plot deg inversion, eval=FALSE}
+
+```r
 Indices_plantspollination<-Indices[-c(5,8,11,13,14,15,17)]
 plotDegInversion(analyse,Indices_plantspollination)
 ```
