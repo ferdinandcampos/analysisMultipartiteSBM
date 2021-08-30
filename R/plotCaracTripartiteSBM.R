@@ -47,9 +47,7 @@ plotCaracTripartiteSBM=function(caracterisation, plot.type="main",
   values_colors[analysePlants[[metrique_color]]==M_values_colors]<-palette[nb_divisions]
 
   #Palette k-means
-  if (!study_insectes_only){palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
-  }else{palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
-  palette2<-palette2[-c(5,6)]}
+  palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
   values_colors_reseaux<-palette2[km_clusters]
 
 
@@ -78,9 +76,7 @@ plotCaracTripartiteSBM=function(caracterisation, plot.type="main",
       # x_lim<-range(res.pca$x[,metrique_x],na.rm=TRUE)
       # y_lim<-range(res.pca$x[,metrique_y],na.rm=TRUE)
       #Palette k-means
-      if (!study_insectes_only){palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
-      }else{palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
-      palette2<-palette2[-c(5,6)]}
+      palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
       values_colors_reseaux<-palette2[km_clusters]
 
       ###Map with k-means clusters
