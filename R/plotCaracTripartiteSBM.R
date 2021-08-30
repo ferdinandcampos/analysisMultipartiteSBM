@@ -50,19 +50,18 @@ plotCaracTripartiteSBM=function(caracterisation,
   palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
   values_colors_reseaux<-palette2[km_clusters]
 
+  taille_lab = 1.3
+  taille_axes = 1
+  taille_axesmetriques = 1.5
+  taille_points = 3
+  taille_pointstext = 1
+  taille_legende = 1.2
+  taille_soustitres = 1.2
 
   ##################################MAIN PLOT
   if(plot.type=="main"){
     if(new.window){x11()}
     par(mfrow=c(2,2),mar = c(3.8, 4.3, 0.3, 0.3))
-    taille_lab = 1.3
-    taille_axes = 1
-    taille_axesmetriques = 1.5
-    taille_points = 3
-    taille_pointstext = 1
-    taille_legende = 1.2
-    taille_soustitres = 1.2
-
     ###PCA
     for (metriques_xy in list(c("PC1","PC2"),c("PC2","PC3"))){
       metrique_x<-metriques_xy[1]
@@ -151,6 +150,8 @@ plotCaracTripartiteSBM=function(caracterisation,
   if(plot.type=="distrib.networks"){
     if(new.window){x11(width = 18,height = 9)}
     par(mfrow=c(3,6),mar = c(3.8, 4.3, 0.3, 0.3))
+    metrique_x<-"c_inter1"
+    metrique_y<-"c_inter2"
     #par(mfrow=c(1,2))
     # plot(analysePlants[[metrique_x]],analysePlants[[metrique_y]],col=values_colors_reseaux,pch=pch_reseaux,type=scatter_type,lwd=1,lty=2,cex=taille_blocks_markers,
     #      xlim=x_lim,ylim=y_lim,xlab=variables_to_Latex(metrique_x),ylab=variables_to_Latex(metrique_y),

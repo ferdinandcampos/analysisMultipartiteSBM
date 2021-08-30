@@ -120,7 +120,7 @@ str(analyseENetDataset)
 ### Blocks analysis
 Les données issues des réseaux représentent $N=53$ blocs $k^\prime$ de plantes à classifier, en interactions avec $21$ blocs d'herbivores et $28$ blocs de mutualistes. 
 
-```{r plot block analysis, eval=TRUE, fig.height=5.5, fig.width=8.5}
+```{r plot block analysis, eval=TRUE, fig.height=5, fig.width=8.5}
 plotAnalysisTripartiteSBM(analyseENetDataset,new.window=FALSE)
 ```
 
@@ -144,7 +144,7 @@ caracterisation<-caracTripartiteSBM(analysePlants,metrics,nb_clusters)
 caracterisation$centers
 ```
 
-```{r plot block caracterisation, eval=TRUE, fig.height=5.5, fig.width=8.5}
+```{r plot block caracterisation, eval=TRUE, fig.height=8, fig.width=8}
 plotCaracTripartiteSBM(caracterisation,new.window=FALSE)
 ```
 
@@ -153,7 +153,7 @@ plotCaracTripartiteSBM(caracterisation,new.window=FALSE)
 
 ### Appendix 1 : functional cartography
 Une façon d'illustrer les connectances partielles et taux de participation réside dans l'outil de la cartographie fonctionnelle ($\textit{functional cartography}$) introduite en écologie dans le célèbre @Guimera2005A, qui trace et classe des espèces dans un plan du type $(\textit{taux de participation}, \textit{degré})$.
-```{r plot functional cartography, eval=TRUE, fig.height=6, fig.width=6}
+```{r plot functional cartography, eval=TRUE, fig.height=6, fig.width=6, fig.align="center"}
 plotFunctionalCartography(analyseENetDataset,new.window=FALSE)
 ```
 
@@ -167,11 +167,11 @@ plotDegInversion(analyseENetDataset,Indices_plantspollination,new.window=FALSE)
 
 ### Additional materials
 One can plot the individual blocks' distributions in clusters, per network.
-```{r plot block caracterisation distrib, eval=TRUE}
+```{r plot block caracterisation distrib, eval=TRUE, fig.height=6, fig.width=8.5}
 #plotCaracTripartiteSBM(caracterisation,plot.type="distrib.networks",new.window=FALSE)
 ```
 The Multidimensional Scaling (MDS) can also be plotted.
-```{r plot block caracterisation mds, eval=TRUE}
+```{r plot block caracterisation mds, eval=TRUE, fig.height=6, fig.width=6}
 #plotCaracTripartiteSBM(caracterisation,plot.type="mds",new.window=FALSE)
 ```
 
