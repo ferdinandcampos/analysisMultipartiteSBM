@@ -120,7 +120,7 @@ str(analyseENetDataset)
 ### Blocks analysis
 Les données issues des réseaux représentent $N=53$ blocs $k^\prime$ de plantes à classifier, en interactions avec $21$ blocs d'herbivores et $28$ blocs de mutualistes. 
 
-```{r plot block analysis, eval=TRUE, fig.height=5, fig.width=8.5}
+```{r plot block analysis, eval=TRUE, fig.height=5.5, fig.width=8.5}
 plotAnalysisTripartiteSBM(analyseENetDataset,new.window=FALSE)
 ```
 
@@ -144,8 +144,8 @@ caracterisation<-caracTripartiteSBM(analysePlants,metrics,nb_clusters)
 caracterisation$centers
 ```
 
-```{r plot block caracterisation, eval=TRUE}
-plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,new.window=FALSE)
+```{r plot block caracterisation, eval=TRUE, fig.height=5.5, fig.width=8.5}
+plotCaracTripartiteSBM(caracterisation,new.window=FALSE)
 ```
 
 ## Additionnal analyses
@@ -153,26 +153,26 @@ plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,new.window=FALSE)
 
 ### Appendix 1 : functional cartography
 Une façon d'illustrer les connectances partielles et taux de participation réside dans l'outil de la cartographie fonctionnelle ($\textit{functional cartography}$) introduite en écologie dans le célèbre @Guimera2005A, qui trace et classe des espèces dans un plan du type $(\textit{taux de participation}, \textit{degré})$.
-```{r plot functional cartography, eval=FALSE}
-plotFunctionalCartography(analyseENetDataset)
+```{r plot functional cartography, eval=TRUE, fig.height=6, fig.width=6}
+plotFunctionalCartography(analyseENetDataset,new.window=FALSE)
 ```
 
 ### Appendix 2 :degree-degree of neighbors inversion
 Dans les écosystèmes plantes--pollinisateurs, une inversion en moyenne du caractère spécialiste/généraliste entre les espèces et leurs voisins est reportée dans la littérature (@bascompte2003nested, @jordano1987patterns). Ici on propose de retrouver ce signal à l'échelle des blocs en traçant pour les plantes  et les pollinisateurs les courbes de connectances partielles $\bar c_b$ en fonction des connectances partielles moyennes des voisins $\bar c_b^{\textrm{N}}$ associées aux blocs des 16 réseaux de type herbivorie--pollinisation à l'étude.
-```{r plot deg inversion, eval=FALSE}
+```{r plot deg inversion, eval=TRUE, fig.height=4, fig.width=8.5}
 Indices_plantspollination<-Indices[-c(5,8,11,13,14,15,17)]
-plotDegInversion(analyseENetDataset,Indices_plantspollination)
+plotDegInversion(analyseENetDataset,Indices_plantspollination,new.window=FALSE)
 
 ```
 
 ### Additional materials
 One can plot the individual blocks' distributions in clusters, per network.
 ```{r plot block caracterisation distrib, eval=TRUE}
-plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,plot.type="distrib.networks",new.window=FALSE)
+#plotCaracTripartiteSBM(caracterisation,plot.type="distrib.networks",new.window=FALSE)
 ```
 The Multidimensional Scaling (MDS) can also be plotted.
 ```{r plot block caracterisation mds, eval=TRUE}
-plotCaracTripartiteSBM(caracterisation,plotIndicesblocs,plot.type="mds",new.window=FALSE)
+#plotCaracTripartiteSBM(caracterisation,plot.type="mds",new.window=FALSE)
 ```
 
 
@@ -195,6 +195,9 @@ plotIndicesblocs<-1:nrow(analysePlants)
 plotIndicesblocs<-plotIndicesblocs[-c(27,28,29,30)] #on enl?ve les 4 indices propres au r?seau 11 removed
 last_indice_blocs<-plotIndicesblocs[length(plotIndicesblocs)]
 plotIndicesblocs<-c(plotIndicesblocs,last_indice_blocs+1,last_indice_blocs+2,last_indice_blocs+3,last_indice_blocs+4) #on ajoute 4 derniers num?ros
+
+
+plotCaracTripartiteSBM(caracterisation,plotIndicesblocs)
 ```
 
 ---

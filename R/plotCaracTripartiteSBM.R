@@ -1,17 +1,17 @@
 #' Plot carac
 #'
 #' @param caracterisation à faire
-#' @param plot.type type du plot entre le principal, "main", ou les deux annexes "distrib.networks" et "mds"
 #' @param plotIndicesblocs à faire
+#' @param plot.type type du plot entre le principal, "main", ou les deux annexes "distrib.networks" et "mds"
 #' @param new.window plots in a new window if TRUE
 #' @return à faire
 #' @examples
 #' à faire
 #'
 #' @export
-plotCaracTripartiteSBM=function(caracterisation, plot.type="main",
+plotCaracTripartiteSBM=function(caracterisation,
                                 plotIndicesblocs=1:nrow(caracterisation$data$analysePlants),
-                                new.window=TRUE){
+                                plot.type="main", new.window=TRUE){
 
   km_centers<-caracterisation$centers
   km_clusters<-caracterisation$memberships
