@@ -24,5 +24,4 @@ Plot FC
 }
 \examples{
 Ã  faire
-
 }

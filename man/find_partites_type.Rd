@@ -19,5 +19,4 @@ tool 1
 }
 \examples{
 Ã  faire
-
 }

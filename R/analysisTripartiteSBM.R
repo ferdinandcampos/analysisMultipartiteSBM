@@ -6,6 +6,7 @@
 #' @return à faire
 #' @examples
 #' à faire
+#' @import sbm rlist stringr
 #'
 #' @export
 
@@ -137,23 +138,17 @@ analysisTripartiteSBM=function(dataset_path,dataset_names,Indices=as.numeric(nam
   if(!quiet){print(paste("Done analysis index =",index))}
   }
   if(must_save){
-    wb <- createWorkbook()
-    addWorksheet(wb, "analyse_r?seaux")
-    writeData(wb, "analyse_r?seaux", analyse_reseaux_reels, rowNames=FALSE)
-    saveWorkbook(wb, file = "analyse_r?seaux_r?els.xlsx", overwrite = TRUE)
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "analyse_r?seaux")
+    openxlsx::writeData(wb, "analyse_r?seaux", analyse_reseaux_reels, rowNames=FALSE)
+    openxlsx::saveWorkbook(wb, file = "analyse_r?seaux_r?els.xlsx", overwrite = TRUE)
     if(!quiet){print("Analysis saved in file .xlsx")}
   }
   return(analyse_reseaux_reels)
 }
 
-# source("toolsFunctions.R")
-# source("getMetricsTripartiteSBM.R")
-# source("ecologicalNetworksDataset_toolsFunctions.R")
-# library(sbm)
-# library(knitr)
-# library(rlist)
-# library(stringr)
-# library("openxlsx")
+
+
 
 ## ---------------------------------------------------------
 ####

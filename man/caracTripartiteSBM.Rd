@@ -26,5 +26,4 @@ Structural caracterisation of a collection of tripartite networks.
 }
 \examples{
 Ã  faire
-
 }

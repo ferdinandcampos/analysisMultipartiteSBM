@@ -17,7 +17,7 @@ dataset_names_AA <-c('McFayden_ALL_A_HPa', 'McFayden_1_A_HPa', 'McFayden_2_A_HPa
 #' @return à faire
 #' @examples
 #' à faire
-#'
+#' @import rlist stringr
 #' @export
 find_partites_type=function(dataset_name){
   if (startsWith( dataset_name, 'Ibanez')){

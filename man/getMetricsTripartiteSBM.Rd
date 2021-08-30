@@ -19,5 +19,4 @@ Compute structural metrics on a tripartite network model MBM
 }
 \examples{
 getMetricsTripartiteSBM(myMSBM)
-
 }

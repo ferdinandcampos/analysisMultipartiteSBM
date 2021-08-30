@@ -68,6 +68,7 @@ rename_species=function(species_names,species_type,rename_short=TRUE){
 #' @examples
 #' à faire
 #'
+#' @import rlist sbm
 #' @export
 formatSBMtoIncidenceMatrices=function(Networks){
   #Cr?ation d'un objet Incidence_matrices avec m?me format que d'habitude

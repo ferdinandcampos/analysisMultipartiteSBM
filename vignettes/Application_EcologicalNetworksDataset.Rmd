@@ -126,7 +126,7 @@ str(analyse)
 ### Blocks analysis
 Les données issues des réseaux représentent $N=53$ blocs $k^\prime$ de plantes à classifier, en interactions avec $21$ blocs d'herbivores et $28$ blocs de mutualistes. 
 
-```{r plot block analysis, eval=TRUE}
+```{r plot block analysis, eval=TRUE, fig.height=5, fig.width=8.5}
 plotAnalysisTripartiteSBM(analyse)
 ```
 
@@ -154,7 +154,7 @@ if (!study_insectes_only){#For our analysis 1
 
 ### Clustering analysis to caracterise blocks of plants
 
-```{r compute caracterisation, eval=FALSE}
+```{r compute caracterisation, eval=TRUE}
 caracterisation<-caracTripartiteSBM(analysePlants,metrics,order_clusters=order_clusters)
 
 caracterisation$centers

@@ -15,7 +15,7 @@
 plotAnalysisTripartiteSBM=function(analyse,
                                    Indices=as.numeric(names(table(analyse$network_id)))){
   ############Histogrammes des nombres de blocks
-  #x11(width = 19,height = 12)
+  x11(width = 19,height = 12)
   par(mfrow=c(2,3),mar = c(4, 5, 1, 0.3))
   distribution_K_all<-analyse[analyse$network_id %in% Indices & analyse$FG=="plants" & analyse$cluster_id==1,c("nb_herbi_clust","nb_plants_clust","nb_polli_clust")]
   rownames(distribution_K_all)<-Indices

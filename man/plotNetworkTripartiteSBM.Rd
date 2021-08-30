@@ -27,5 +27,4 @@ Plot network with blocks
 }
 \examples{
 Ã  faire
-
 }

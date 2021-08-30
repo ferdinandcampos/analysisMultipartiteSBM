@@ -5,7 +5,7 @@
 #' @return à faire
 #' @examples
 #' à faire
-#'
+#' @import igraph sbm
 #' @export
 plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
                                   plot_graph_no_partites=TRUE,show_titles=TRUE,
@@ -62,16 +62,16 @@ plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
   names(couleurs_clusters)<-NULL
   couleurs_clusters_pie<-as.list(all_nodes_clusters[names(V(g))])
   if (nb_c_int2<=8){
-    palette_int2<-brewer.pal(max(nb_c_int2+1,3), "BuPu")
-  } else {palette_int2<-colorRampPalette(brewer.pal(9, "BuPu"))(nb_c_int2+1)}
+    palette_int2<-RColorBrewer::brewer.pal(max(nb_c_int2+1,3), "BuPu")
+  } else {palette_int2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "BuPu"))(nb_c_int2+1)}
 
   if (nb_c_link<=8){
-    palette_link<-brewer.pal(max(nb_c_link+1,3), "PiYG")
-  } else{palette_link<-colorRampPalette(brewer.pal(9, "PiYG"))(nb_c_link+1)}
+    palette_link<-RColorBrewer::brewer.pal(max(nb_c_link+1,3), "PiYG")
+  } else{palette_link<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "PiYG"))(nb_c_link+1)}
 
   if (nb_c_int1<=8){
-    palette_int1<-brewer.pal(max(nb_c_int1+1,3), "OrRd")
-  } else{palette_int1<-colorRampPalette(brewer.pal(9, "OrRd"))(nb_c_int1+1)}
+    palette_int1<-RColorBrewer::brewer.pal(max(nb_c_int1+1,3), "OrRd")
+  } else{palette_int1<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "OrRd"))(nb_c_int1+1)}
 
   palette_perso=c(palette_int2[2:(nb_c_int2+1)],palette_link[2:(nb_c_link+1)],palette_int1[2:(nb_c_int1+1)])
   for (i in 1:(nb_c_int2+nb_c_link+nb_c_int1)){
@@ -161,6 +161,3 @@ plotNetworkTripartiteSBM=function(myMSBM,seuil_hesitation=0.9,plot_types=1,
   # }
   #
 }
-# library(igraph)
-# library(RColorBrewer)
-# library(Matrix)

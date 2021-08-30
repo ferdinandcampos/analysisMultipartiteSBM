@@ -5,7 +5,7 @@
 #' @return à faire
 #' @examples
 #' à faire
-#'
+#' @import ggplot2
 #' @export
 
 caracTripartiteSBM=function(analysePlants,
@@ -25,7 +25,7 @@ caracTripartiteSBM=function(analysePlants,
 
   if (is.null(nb_clusters) & is.null(order_clusters)){ ##Nombre de clusters ? d?terminer
     x11()
-    elbowrule<-fviz_nbclust(df, kmeans, method = "wss",nstart = 50)
+    elbowrule<-factoextra::fviz_nbclust(df, kmeans, method = "wss",nstart = 50)
     print(elbowrule)
     print ("Enter the number of clusters")
     nb_clusters <-scan(n=1,quiet=TRUE)
@@ -40,7 +40,7 @@ caracTripartiteSBM=function(analysePlants,
 
   if (is.null(init_centers)){init_centers<-nb_clusters}
 
-  km <- kmeans(df, centers = init_centers, nstart = 100)
+  km <- stats::kmeans(df, centers = init_centers, nstart = 100)
   km_clusters<-km$cluster[rownames(analysePlants)]
   km_centers<-km$centers
 
@@ -68,17 +68,16 @@ caracTripartiteSBM=function(analysePlants,
   rownames(nb_blocks_per_kmclusters)<-as.numeric(names(table(analysePlants$network_id)))
 
   ##PCA
-  res.pca<-prcomp(df_nodoubles,scale=TRUE)
+  res.pca<-stats::prcomp(df_nodoubles,scale=TRUE)
 
   ##MDS
-  d <- dist(scale(df_nodoubles))
-  fit.MDS <- cmdscale(d,eig=TRUE, k=2)
+  d <- stats::dist(scale(df_nodoubles))
+  fit.MDS <- stats::cmdscale(d,eig=TRUE, k=2)
 
   return(list(centers = km_centers, memberships = km_clusters, distrib.networks = nb_blocks_per_kmclusters,
               data=list(analysePlants=analysePlants,km_centering=df_centering,km_scaling=df_scaling),
               result.kmeans = km ,result.PCA = res.pca, result.MDS=fit.MDS))
 }
 
-# library(ggplot2)
-# library(stats)
-# library(factoextra)
+
+

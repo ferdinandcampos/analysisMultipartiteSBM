@@ -25,9 +25,12 @@ Imports:
       latex2exp, 
       factoextra, 
       scatterplot3d, 
-      openxlsx    
+      openxlsx,
+      grDevices,
+      scales
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: knitr, rmarkdown, testthat
+Depends: R (>= 3.5.0)
 VignetteBuilder: knitr
-URL: https://ferdinandcampos.github.io/analysisMultipartiteSBM/, https://github.com/ferdinandcampos/analysisMultipartiteSBM
+URL: https://ferdinandcampos.github.io/analysisMultipartiteSBM, https://github.com/ferdinandcampos/analysisMultipartiteSBM

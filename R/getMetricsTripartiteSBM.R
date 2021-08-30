@@ -5,7 +5,7 @@
 #' @return a data.frame including for each cluster of each FG of the network the metrics values and the relative sizes of clusters \code{cluster_pi}.
 #' @examples
 #' getMetricsTripartiteSBM(myMSBM)
-#'
+#' @import sbm
 #' @export
 getMetricsTripartiteSBM=function(myMSBM,normalise=TRUE){
   metric_degrees<-data.frame(FG=character(),cluster_id=integer(),cluster_pi=numeric(),
@@ -25,9 +25,9 @@ getMetricsTripartiteSBM=function(myMSBM,normalise=TRUE){
     if(FG==linking_set){
       for (cluster_id in (1:nb_FG_clust)){
         cluster_pi<-myMSBM$blockProp[[eval(FG)]][cluster_id]
-        c_inter1<-weighted.mean(connect_alphas[[inter1]]$mean[cluster_id,],myMSBM$blockProp[[eval(inter1)]])
-        c_inter2<-weighted.mean(connect_alphas[[inter2]]$mean[cluster_id,],myMSBM$blockProp[[eval(inter2)]])
-        c_tot<-weighted.mean(c(c_inter1,c_inter2),inter_percents) #DISCUTABLE
+        c_inter1<-stats::weighted.mean(connect_alphas[[inter1]]$mean[cluster_id,],myMSBM$blockProp[[eval(inter1)]])
+        c_inter2<-stats::weighted.mean(connect_alphas[[inter2]]$mean[cluster_id,],myMSBM$blockProp[[eval(inter2)]])
+        c_tot<-stats::weighted.mean(c(c_inter1,c_inter2),inter_percents) #DISCUTABLE
         c_tot_sym<-mean(c(c_inter1,c_inter2))
         PR_inter1<-c_inter1*inter_percents[1]/sum(c(c_inter1,c_inter2)*inter_percents) #DISCUTABLE
         PR_inter1_sym<-c_inter1/(c_inter1+c_inter2)
@@ -37,7 +37,7 @@ getMetricsTripartiteSBM=function(myMSBM,normalise=TRUE){
     }else{
       for (cluster_id in (1:nb_FG_clust)){
         cluster_pi<-myMSBM$blockProp[[eval(FG)]][cluster_id]
-        c_inter<-weighted.mean(connect_alphas[[eval(FG)]]$mean[,cluster_id],myMSBM$blockProp[[eval(linking_set)]])
+        c_inter<-stats::weighted.mean(connect_alphas[[eval(FG)]]$mean[,cluster_id],myMSBM$blockProp[[eval(linking_set)]])
         c_tot<-c_inter
         c_tot_sym<-c_inter
 
@@ -59,7 +59,7 @@ getMetricsTripartiteSBM=function(myMSBM,normalise=TRUE){
         cKnn_inter1<-cKnn_inter1/metric_degrees[metric_degrees$FG==FG & metric_degrees$cluster_id==cluster_id,"c_inter1"]
         cKnn_inter2<-cKnn_inter2/metric_degrees[metric_degrees$FG==FG & metric_degrees$cluster_id==cluster_id,"c_inter2"]
         PR_inter1_cluster<-metric_degrees[metric_degrees$FG==FG & metric_degrees$cluster_id==cluster_id,"PR_inter1"]
-        cKnn_tot<-weighted.mean(c(cKnn_inter1,cKnn_inter2),c(PR_inter1_cluster,1-PR_inter1_cluster)) #DISCUTABLE
+        cKnn_tot<-stats::weighted.mean(c(cKnn_inter1,cKnn_inter2),c(PR_inter1_cluster,1-PR_inter1_cluster)) #DISCUTABLE
 
         metric_degrees[metric_degrees$FG==FG & metric_degrees$cluster_id==cluster_id,c("cKnn_inter1","cKnn_inter2","cKnn_tot")]<-c(cKnn_inter1,cKnn_inter2,cKnn_tot)
       }
@@ -82,8 +82,8 @@ getMetricsTripartiteSBM=function(myMSBM,normalise=TRUE){
   if (normalise){ #NORMALISATION
 
     #Vecteurs des moyennes de c pour les 3 FG
-    c_interactions_mean<-list(weighted.mean(connect_alphas[[inter1]]$mean,myMSBM$blockProp[[eval(linking_set)]]%*%t((myMSBM$blockProp[[eval(inter1)]])))
-                              ,weighted.mean(connect_alphas[[inter2]]$mean,myMSBM$blockProp[[eval(linking_set)]]%*%t((myMSBM$blockProp[[eval(inter2)]]))))
+    c_interactions_mean<-list(stats::weighted.mean(connect_alphas[[inter1]]$mean,myMSBM$blockProp[[eval(linking_set)]]%*%t((myMSBM$blockProp[[eval(inter1)]])))
+                              ,stats::weighted.mean(connect_alphas[[inter2]]$mean,myMSBM$blockProp[[eval(linking_set)]]%*%t((myMSBM$blockProp[[eval(inter2)]]))))
     names(c_interactions_mean)<-c(inter1,inter2)
     #Vecteurs des moyennes et std de Knn pour les 3 FG
     #Quantit?s ql
@@ -130,11 +130,11 @@ getMetricsTripartiteSBM=function(myMSBM,normalise=TRUE){
 
           c_inter1<-(c_inter1-c_interactions_mean[[1]])/sqrt(c_interactions_mean[[1]]*(1-c_interactions_mean[[1]]))
           c_inter2<-(c_inter2-c_interactions_mean[[2]])/sqrt(c_interactions_mean[[2]]*(1-c_interactions_mean[[2]]))
-          c_tot<-weighted.mean(c(c_inter1,c_inter2),inter_percents)
+          c_tot<-stats::weighted.mean(c(c_inter1,c_inter2),inter_percents)
           c_tot_sym<-mean(c(c_inter1,c_inter2))
           cKnn_inter1<- (cKnn_inter1-cKnn_linking_set_mean[[1]])/cKnn_linking_set_std[[1]]
           cKnn_inter2<- (cKnn_inter2-cKnn_linking_set_mean[[2]])/cKnn_linking_set_std[[2]]
-          cKnn_tot<-weighted.mean(c(cKnn_inter1,cKnn_inter2),c(PR_inter1_cluster,1-PR_inter1_cluster))
+          cKnn_tot<-stats::weighted.mean(c(cKnn_inter1,cKnn_inter2),c(PR_inter1_cluster,1-PR_inter1_cluster))
 
           metric_degrees[metric_degrees$FG==FG & metric_degrees$cluster_id==cluster_id,c("c_inter1","c_inter2","c_tot","c_tot_sym","cKnn_inter1","cKnn_inter2","cKnn_tot")]<-c(c_inter1,c_inter2,c_tot,c_tot_sym,cKnn_inter1,cKnn_inter2,cKnn_tot)
         }

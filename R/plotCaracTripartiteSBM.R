@@ -44,8 +44,8 @@ plotCaracTripartiteSBM=function(caracterisation,
   values_colors[analysePlants[[metrique_color]]==M_values_colors]<-palette[nb_divisions]
 
   #Palette k-means
-  if (!study_insectes_only){palette2<-colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
-  }else{palette2<-colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
+  if (!study_insectes_only){palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
+  }else{palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
   palette2<-palette2[-c(5,6)]}
   values_colors_reseaux<-palette2[km_clusters]
 
@@ -75,8 +75,8 @@ plotCaracTripartiteSBM=function(caracterisation,
     # x_lim<-range(res.pca$x[,metrique_x],na.rm=TRUE)
     # y_lim<-range(res.pca$x[,metrique_y],na.rm=TRUE)
     #Palette k-means
-    if (!study_insectes_only){palette2<-colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
-    }else{palette2<-colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
+    if (!study_insectes_only){palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(nb_clusters+2)
+    }else{palette2<-grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))(6+2)
     palette2<-palette2[-c(5,6)]}
     values_colors_reseaux<-palette2[km_clusters]
 
@@ -90,9 +90,9 @@ plotCaracTripartiteSBM=function(caracterisation,
 
     km_centers_normalised<-t(apply(km_centers,1,function(x){x*km_scaling})+km_centering) #weighted k-means unscaling
     km_centers_normalised<-t(apply(km_centers_normalised,1,function(x){x-res.pca$center})/res.pca$scale) #PCA scaling
-    km_centers_projected<-t(solve(res.pca$rotation)%*%t(km_centers_normalised)) #rotating
+    km_centers_projected<-t(Matrix::solve(res.pca$rotation)%*%t(km_centers_normalised)) #rotating
     #(km_centers_projected)<-colnames(res.pca$x)#Ne fonctionne
-    #km_centers_projected<-t((solve(res.pca$rotation))%*%(apply(km_centers,1,function(x){x-res.pca$center})/res.pca$scale)) #Ne fonctionne pas
+    #km_centers_projected<-t((Matrix::solve(res.pca$rotation))%*%(apply(km_centers,1,function(x){x-res.pca$center})/res.pca$scale)) #Ne fonctionne pas
     points(km_centers_projected[,metrique_x],km_centers_projected[,metrique_y],col=palette2[1:nb_clusters],pch=19,cex=1.5)
     points(km_centers_projected[,metrique_x],km_centers_projected[,metrique_y],col="black",pch=8,cex=1)
 
@@ -190,5 +190,3 @@ plotCaracTripartiteSBM=function(caracterisation,
   legend("topright", legend = paste0("C",1:nb_clusters), col = palette2,text.col=palette2,title.col="black", pch = 17,
          bty = "n",title="Clusters",cex=taille_legende,y.intersp=0.8,x.intersp=0.4)
 }
-
-# source("toolsFunctions.R")

@@ -9,7 +9,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ferdinandcampos/analysisMultipartiteSBM/")
+devtools::install_github("ferdinandcampos/analysisMultipartiteSBM")
 ```
 ## Vignettes and references
 References and vignettes are available to illustrate package tools, see the  [package's website](https://ferdinandcampos.github.io/analysisMultipartiteSBM/articles/Application_EcologicalNetworksDataset.html)

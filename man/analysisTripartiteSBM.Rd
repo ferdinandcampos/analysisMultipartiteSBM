@@ -34,5 +34,4 @@ First it calibrates MBM on each network then computes structural metrics.
 }
 \examples{
 Ã  faire
-
 }

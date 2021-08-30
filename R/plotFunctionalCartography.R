@@ -5,7 +5,7 @@
 #' @return à faire
 #' @examples
 #' à faire
-#'
+#' @import ggplot2
 #' @export
 plotFunctionalCartography=function(analyse,
                                    plotdim="2d",highlight.3d=FALSE,Indices=as.numeric(names(table(analyse$network_id)))){
@@ -23,8 +23,8 @@ plotFunctionalCartography=function(analyse,
   data_plants<-analyse[analyse$FG==FG_plotted,]
 
   nb_divisions=6
-  if(metrique_color=="cKnn_inter1" | metrique_color=="cKnn_inter2" | metrique_color=="cKnn_tot"){palette<-rev(brewer.pal(nb_divisions, "RdYlBu"))}
-  if(metrique_color=="PR_inter1" | metrique_color=="PR_inter1_sym"){palette<-rev(brewer.pal(nb_divisions, "Spectral"))}
+  if(metrique_color=="cKnn_inter1" | metrique_color=="cKnn_inter2" | metrique_color=="cKnn_tot"){palette<-rev(RColorBrewer::brewer.pal(nb_divisions, "RdYlBu"))}
+  if(metrique_color=="PR_inter1" | metrique_color=="PR_inter1_sym"){palette<-rev(RColorBrewer::brewer.pal(nb_divisions, "Spectral"))}
   values_colors<-rep("#000000",length(data_plants[[metrique_color]])) #NB si on modifie directement values colors en mettant des codes hexa au milieu des numeric ?a pose souci. faire deux objets
   m_values_colors<-min(data_plants[[metrique_color]])
   M_values_colors<-max(data_plants[[metrique_color]])
@@ -63,7 +63,7 @@ plotFunctionalCartography=function(analyse,
   } else if (plotdim=="3d"){
     metrique_z<-metrique_color
     if (highlight.3d){
-      s3d<-scatterplot3d(data_plants[[metrique_x]],
+      s3d<-scatterplot3d::scatterplot3d(data_plants[[metrique_x]],
                          data_plants[[metrique_y]],
                          data_plants[[metrique_z]],
                          main="Functionnal 3d cartography with highlighting3d colors",
@@ -83,7 +83,7 @@ plotFunctionalCartography=function(analyse,
                            data_plants[[metrique_z]]), labels=as.character(data_plants[data_plants$network_id %in% Indices, "network_id"]),
            cex=0.6,col="white")
     } else {
-      s3d<-scatterplot3d(data_plants[[metrique_x]],
+      s3d<-scatterplot3d::scatterplot3d(data_plants[[metrique_x]],
                          data_plants[[metrique_y]],
                          data_plants[[metrique_z]],
                          main="3d Functional Cartography",
@@ -109,7 +109,3 @@ plotFunctionalCartography=function(analyse,
     }
   }
 }
-
-# library(scatterplot3d)
-# library(RColorBrewer)
-# library(ggplot2)
