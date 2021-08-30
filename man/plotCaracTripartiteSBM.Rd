@@ -6,17 +6,17 @@
 \usage{
 plotCaracTripartiteSBM(
   caracterisation,
-  plot.type = "main",
   plotIndicesblocs = 1:nrow(caracterisation$data$analysePlants),
+  plot.type = "main",
   new.window = TRUE
 )
 }
 \arguments{
 \item{caracterisation}{à faire}
 
-\item{plot.type}{type du plot entre le principal, "main", ou les deux annexes "distrib.networks" et "mds"}
-
 \item{plotIndicesblocs}{à faire}
+
+\item{plot.type}{type du plot entre le principal, "main", ou les deux annexes "distrib.networks" et "mds"}
 
 \item{new.window}{plots in a new window if TRUE}
 }
